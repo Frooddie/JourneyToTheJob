@@ -5,14 +5,14 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to a guessing game, I'm thinking of a number between 1-100, which number am I thinking of?");
+            Random random = new Random();
+            int answer = random.Next(1, 101);
             bool GameOver = false; //For not making game repeat itself indefinetly
             List<int> guesslist = new List<int>(); //To create a list of all the guesses you've made
             while (GameOver == false)
             {
                 //Creation of which random number the program is thinking of
-                Random random = new Random();
-                int answer = random.Next(1, 101);
-                int guess = int.MaxValue;
+                int guess = new int();
                 while (true)
                 {
                     try //In case that user enters a string
@@ -34,7 +34,6 @@
                     if (choice == "a")
                     {
                         Console.WriteLine("Alright, please try again!");
-                        guess = int.Parse(Console.ReadLine());
                         continue;
                     }
                     else if (choice == "b")
@@ -58,7 +57,6 @@
                     if (choice == "a")
                     {
                         Console.WriteLine("Alright, please try again!");
-                        guess = int.Parse(Console.ReadLine());
                         continue;
                     }
                     else if (choice == "b")
