@@ -11,59 +11,62 @@
             allGuesses guessing = new allGuesses(); //Initiates the object
             while (GameOver == false)
             {
-                guessing.makeGuessList(Console.ReadLine()); //Calling and starting your guesslist
-                if (guessing.currentGuess < answer) //If your guess is lower than the answer
+                try
                 {
-                    Console.WriteLine("Your guess was: " + guessing.currentGuess + " and that was lower than what I'm thinking of!");
-                    Console.WriteLine("Would you like to: a. Guess again, b. See all your previous guesses? or c. Give up?");
-                    string choice = Console.ReadLine();
-                    if (choice == "a")
+                    int guess = int.Parse(Console.ReadLine());
+                    guessing.UpdateList(guess); //Calling and starting your guesslist
+
+                    if (guessing.currentGuess < answer) //If your guess is lower than the answer
                     {
-                        Console.WriteLine("Alright, please try again!");
-                        continue;
+                        Console.WriteLine("Your guess was: " + guessing.currentGuess + " and that was lower than what I'm thinking of!");
                     }
-                    else if (choice == "b")
+                    else if (guessing.currentGuess > answer) //If your guess is higher than the answer
                     {
-                        guessing.seeGuessList(); //Writes out your guesslist
-                        Console.WriteLine("Now please try again!");
-                        continue;
+                        Console.WriteLine("Your guess was: " + guessing.currentGuess + " and that was higher than what I'm thinking about!");
                     }
-                    else //Option "c"
+                    else //If your guess equals answer
                     {
-                        Console.WriteLine("Better luck next time!");
+                        Console.WriteLine("Congratulations! You guessed " + guessing.currentGuess + " and that is correct!");
+                        Console.WriteLine("Game shutting down!");
                         GameOver = true;
                         break;
                     }
+
+                    bool choices = false;
+                    while (choices == false) //In case the user enters a different input than "a", "b" or "c"
+                    {
+                        Console.WriteLine("Would you like to: [a]. Guess again, [b]. See all your previous guesses? or [c]. Give up?"); //If your guess is not correct there are choices to proceed
+                        string choice = Console.ReadLine();
+
+                        if (choice == "a")
+                        {
+                            Console.WriteLine("Alright, please try again!");
+                            choices = true;
+                        }
+                        else if (choice == "b")
+                        {
+                            guessing.ShowList(); //Writes out your guesslist
+                            Console.WriteLine("Now please try again!");
+                            choices = true;
+                        }
+                        else if (choice == "c")
+                        {
+                            Console.WriteLine("Better luck next time!");
+                            choices = true;
+                            GameOver = true;
+                            break;
+                        }
+                        else 
+                        {
+                            Console.WriteLine("Not a valid choice!");
+                            continue;
+                        }
+                    }
                 }
-                else if (guessing.currentGuess > answer) //If your guess is higher than the answer
+
+                catch (Exception e) 
                 {
-                    Console.WriteLine("Your guess was: " + guessing.currentGuess + " and that was higher than what I'm thinking about!");
-                    Console.WriteLine("Would you like to: a. Guess again, b. See all your previous guesses? or c. Give up?");
-                    string choice = Console.ReadLine();
-                    if (choice == "a")
-                    {
-                        Console.WriteLine("Alright, please try again!");
-                        continue;
-                    }
-                    else if (choice == "b")
-                    {
-                        guessing.seeGuessList(); //Writes out your guesslist
-                        Console.WriteLine("Now please try again!");
-                        continue;
-                    }
-                    else //Option "c"
-                    {
-                        Console.WriteLine("Better luck next time!");
-                        GameOver = true;
-                        break;
-                    }
-                }
-                else //If your guess equals answer
-                {
-                    Console.WriteLine("Congratulations! You guessed " + guessing.currentGuess + " and that is correct!");
-                    Console.WriteLine("Game shutting down!");
-                    GameOver = true;
-                    break;
+                    Console.WriteLine("Please enter a number as stated prior!");
                 }
             }
         }

@@ -9,30 +9,18 @@ namespace Inlämning1
     internal class allGuesses
     {
         public int currentGuess;
-        public int guess;
         List<int> guesslist = new List<int>();
         
         public allGuesses() //Constructor
         {
-            this.guess = guess;
+
         }
-        public void makeGuessList(string guess) //Fills the guesslist but also catches if your currentGuess is not a int
+        public void UpdateList(int guess) //Fills the guesslist and stores your currentGuess
         {
-            while (true)
-            {
-                try //In case that user enters a string
-                {
-                    guesslist.Add(int.Parse(guess));
-                    currentGuess = int.Parse(guess);
-                    break;
-                }
-                catch
-                {
-                    Console.WriteLine("Please enter a number as stated prior!");
-                }
-            }
+            guesslist.Add(guess);
+            currentGuess = guess;
         }
-        public void seeGuessList() //Shows you the full list of your guesses to see what numbers you already guessed on
+        public void ShowList() //Shows you the full list of your guesses to see what numbers you already guessed on
         {
             this.guesslist = guesslist;
             Console.WriteLine(string.Join(" ,", guesslist));
